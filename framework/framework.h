@@ -14,3 +14,5 @@ inline int __builtin_bswap32(int val){
     
     return retval;
 }
+
+int createVHD(const char*,u32 , char );
