@@ -6,11 +6,21 @@
 #define SIZEMASK (u32)((-1)^0x000fffff)
 #define VARBIT 1<<0
 
-struct GUID{
-u32 interclass;
-u32 innerIDs;
-u32 Outerclass;
-u32 OuterID;
+extern 
+
+union GUID{
+    struct 
+    {
+        u32 interclass;
+        u16 innerIDs;
+        u16 Outerclass;
+        u8 b1,b2,b3,b4;
+
+    };
+    int segs[4];
+
+    
+
 };
 
 union Checksum{
@@ -29,7 +39,7 @@ struct header{
     u64 nextsize;
     u32 unk2;
     u32 unk3;
-    struct GUID id;
+    GUID id;
     u32 crc32Checksum; 
 };
 
@@ -55,7 +65,12 @@ int createVHD(const char* name ,u32 size , char resizable ){
 
 
     srand(time(NULL));
+    
+    
+      
+    rand();
     struct header VHDhead;
+
     memcpy_s(&(VHDhead.magic),8,"conectix",8);
     memcpy_s(&(VHDhead.flag1),8,"\0\0\0\x02\0\0\x01\0\0",8);
     memcpy_s(&(VHDhead.flag3),8,"\0\0\0\0Wi2k",8);
@@ -65,7 +80,13 @@ int createVHD(const char* name ,u32 size , char resizable ){
     memcpy_s(&(VHDhead.size),8,&realsize,8);
     memcpy_s(&(VHDhead.nextsize),8,&realsize,8);
     memcpy_s(&(VHDhead.unk2),8,"\0\x78\x04\x11\0\0\0\x02",8);
-    memcpy_s(,16,,16)
+    int i = 0;
+    for (; i <4; i++)
+    {
+        VHDhead.id.segs[i]=rand();
+    }
+    VHDhead.W2KSig=0x6b326957;
+
     
 
 
