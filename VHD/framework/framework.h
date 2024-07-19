@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <string.h>
+#include <signal.h>
+#include "vhdeditor.h"
 
 inline int __builtin_bswap32(int val){
     int retval=0;
@@ -14,5 +16,3 @@ inline int __builtin_bswap32(int val){
     
     return retval;
 }
-
-int createVHD(const char*,u32 , char );

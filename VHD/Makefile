@@ -1,10 +1,13 @@
 
 
-VHDdisk: main.obj
+VHDdisk: main.obj vheditor.obj
 	link /OUT:$@.exe $**
 
 
 .c.obj: 
+	cl.exe /Iframework /c /Fo:$@ $<
+
+.cpp.obj: 
 	cl.exe /Iframework /c /Fo:$@ $<
 
 clean:
@@ -22,5 +25,5 @@ clean:
 
 	)
 
-.PHONY:VHDdsik
+.PHONY:VHDdisk
 .PHONY:clean
